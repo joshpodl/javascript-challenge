@@ -9,7 +9,16 @@ var form = d3.select("form");
 
 // Create event handlers for clicking the button or pressing the enter key
 button.on("click", runEnter);
-form.on("submit",runEnter);
+form.on("submit", runEnter);
+
+// create function to convert the input date format
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+    return [month,day,year].join('/');
+};
 
 // Reference to tbody
 var tbody = d3.select("tbody");
@@ -21,18 +30,21 @@ function runEnter() {
     d3.event.preventDefault();
   
     // Select input date and get its value
-    var dateEntered = d3.select("#datetime").property("value");
+    let dateEntered = d3.select("#datetime").property("value");
+    dateEntered = formatDate(dateEntered);
+    console.log(dateEntered);
 
     // Filter by selected date
-    var dateFiltered = tableData.filter(tableData.datetime == dateEntered);
+    let dateFiltered = tableData.filter(ufoDate => ufoDate.datetime == dateEntered);
+    console.log(dateFiltered);
 
     // Clear previous table data
     d3.selectAll('#ufo-table>tbody>tr').remove();
 
     // Append data for entered date
-    dateFiltered.forEach((tableData)=> {
-        var row = tbody.append("tr");
-        Object.entries(tableData).forEach(([key, value])=> {
+    dateFiltered.forEach((ufoDate)=> {
+        let row = tbody.append("tr");
+        Object.entries(ufoDate).forEach(([key, value])=> {
           var cell = row.append("td");
           cell.text(value); 
         });
