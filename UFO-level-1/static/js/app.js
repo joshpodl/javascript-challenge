@@ -37,11 +37,11 @@ function filterTable() {
     // Clear previous table data
     tbody.html("");
 
-    // Append table content
+    // Append table content for input date
     addData(filterDate);
 };
 
 
-// Create event handler with filter table function for clicking button or pressing enter
+// Create event handlers with filter table function for clicking button or pressing enter
 button.on("click", filterTable);
 form.on("submit", filterTable);
