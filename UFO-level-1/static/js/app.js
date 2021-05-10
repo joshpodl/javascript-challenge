@@ -16,7 +16,6 @@ function formatDate(date) {
 
 // Input data into HTML
 function addData(dataInput) {
-    tbody.html("");
     dataInput.forEach((ufoData) => {
         let row = tbody.append("tr");
         Object.entries(ufoData).forEach(([key, value])=> {
@@ -35,15 +34,16 @@ function filterTable() {
 
     // Select the input date and get the value property of the input element
     let inputDate=d3.select("#datetime").property("value");
-    // print the value to the console
+    // Print date to the console
     inputDate=formatDate(inputDate);
     console.log(inputDate);
     
     // Filter by selected date
     var filterDate = tableData.filter(ufoData => ufoData.datetime == inputDate);
+    // Print data for selected date
     console.log(filterDate);
     
-    // Clear previous table data in body
+    // Clear previous table data
     tbody.html("");
 
     // Append table content
