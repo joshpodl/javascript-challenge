@@ -18,7 +18,7 @@ function addData(dataInput) {
 };
 addData(tableData);
 
-// Create event handler with function for filtering table based on date
+// Create function for filtering table based on input date
 function filterTable() {
     
     // Prevent page from refreshing
