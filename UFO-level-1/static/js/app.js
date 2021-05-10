@@ -1,18 +1,10 @@
 // from data.js
 var tableData = data;
 
-// Reference table body and button 
+// Create references
 var tbody = d3.select("tbody");
 var button = d3.select("#filter-btn");
-
-// Function to convert the input date format
-function formatDate(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-    return [month,day,year].join('/');
-};
+var form = d3.select("form");
 
 // Input data into HTML
 function addData(dataInput) {
@@ -34,12 +26,11 @@ function filterTable() {
 
     // Select the input date and get the value property of the input element
     let inputDate=d3.select("#datetime").property("value");
-    // Print date to the console
-    inputDate=formatDate(inputDate);
+    // Print input date to the console
     console.log(inputDate);
     
     // Filter by selected date
-    var filterDate = tableData.filter(ufoData => ufoData.datetime == inputDate);
+    let filterDate = tableData.filter(ufoData => ufoData.datetime == inputDate);
     // Print data for selected date
     console.log(filterDate);
     
@@ -47,15 +38,10 @@ function filterTable() {
     tbody.html("");
 
     // Append table content
-    filterDate.forEach((ufoData) => {
-        let row = tbody.append("tr");
-        Object.entries(ufoData).forEach(([key, value])=> {
-            var cell = row.append("td");
-            cell.text(value);
-        });
-    });
+    addData(filterDate);
 };
 
 
-// Create event handler with filter table function
+// Create event handler with filter table function for clicking button or pressing enter
 button.on("click", filterTable);
+form.on("submit", filterTable);
